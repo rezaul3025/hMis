@@ -3,11 +3,13 @@ package org.hmis.core.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="PATIENT")
+@Entity
 public class Patient implements Serializable
 {
 	/**
@@ -15,7 +17,7 @@ public class Patient implements Serializable
 	 */
 	private static final long serialVersionUID = 2558249907642526794L;
 	
-	@Id
+	
 	private String id;
 	@Field
 	private String name;
