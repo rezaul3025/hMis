@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html layout:decorator="layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add user</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <script type="text/javascript">
+ 
+</script>
+
+</head>
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
+	<div layout:fragment="sidebar">
+    	<div th:replace="fragments/sidebar :: sidebar">
+    	</div>
+    </div>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form class="form-horizontal" action="#" th:action="@{/add-user}" th:object="${user}" method="post">
+					<legend>Add User Information</legend>
+					<div class="form-group">
+						<label for="title" class="col-sm-3 control-label">Title</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="title" ng-model="title" th:field="*{title}"
+								name="title" placeholder="title">
+								<option value=""></option>
+								<option value="professor">Professor</option>
+								<option value="Doctor">Doctor</option>
+								<option value="Computer operator">Computer operator</option>
+								<option value="Manager">Manager</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="firstName" class="col-sm-3 control-label">First
+							Name</label>
+						<div class="col-sm-9">
+							<cg-input ng-model="firstName" id="firstName" name="firstName" th:field="*{firstName}"
+								placeholder="First name"></cg-input>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lastName" class="col-sm-3 control-label">Last
+							Name</label>
+						<div class="col-sm-9">
+							<cg-input ng-model="lastName" id="lastName" name="lastName" th:field="*{lastName}"
+								placeholder="Last name"></cg-input>
+						</div>
+					</div>
+					<!--  div class="form-group">
+				<label for="dob" class="col-sm-3 control-label">Date of birth</label>
+				<div class="col-sm-9">
+					<cg-input ng-model="dob" id="dob" name="dob" placeholder="Date of birth" ></cg-input>
+				</div>
+			</div-->
+					<div class="form-group">
+						<label for="address" class="col-sm-3 control-label">Address</label>
+						<div class="col-sm-9">
+							<cg-text-area ng-model="address" id="address" name="address" th:field="*{address}"
+								placeholder="Address"></cg-text-area>
+						</div>
+					</div>
+					<legend>Add Roles</legend>
+					<div class="form-group">
+						<label for="roles" class="col-sm-3 control-label">Roles</label>
+						<div class="col-sm-9">
+							<select class="form-control" ng-model="roles" id="roles" multiple="multiple" th:field="*{roles}">
+								<option value="ADMIN">ADMIN</option>
+								<option value="USER">USER</option>
+							</select>
+						</div>
+					</div>
+					<legend>Add User credential</legend>
+					<div class="form-group">
+						<label for="userName" class="col-sm-3 control-label">User name</label>
+						<div class="col-sm-9">
+							<cg-input ng-model="userName" id="userName" name="userName" th:field="*{userName}"
+							placeholder="Enter user name" ></cg-input>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="password" class="col-sm-3 control-label">Password</label>
+						<div class="col-sm-9">
+							<cg-password type="password" ng-model="password" id="password" th:field="*{password}"
+							name="password" placeholder="Enter password" ></cg-password>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="passwordCon" class="col-sm-3 control-label">Repeat password</label>
+						<div class="col-sm-9">
+							<cg-password type="password" ng-model="passwordCon" id="passwordCon" name="passwordCon" placeholder="Repeat password" ></cg-password>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
+							<button type="submit" class="btn btn-primary">Add user</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

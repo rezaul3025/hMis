@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+  <head>
+    <title>Home</title>
+    ...
+  </head>
+  <body>
+    <!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
+    <div layout:fragment="sidebar">
+    	<div th:replace="fragments/sidebar :: sidebar">
+    	</div>
+    </div>
+    <div layout:fragment="content">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Text</td>
+            <td>Due to</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4">No tasks my home1</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><a href="view.html">Title ...</a></td>
+            <td >Text ...</td>
+            <td >July 11, 2012 2:17:16 PM CDT</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
