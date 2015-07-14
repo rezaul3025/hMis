@@ -10,6 +10,8 @@
       th:href="@{/scriptlib/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css}"/>
       <link rel="stylesheet" type="text/css" media="all"
       th:href="@{/scriptlib/select2-4.0.0/dist/css/select2.css}"/>
+      <link rel="stylesheet" type="text/css" media="all"
+      th:href="@{/scriptlib/bootstrap-datepicker-1.4.0-dist/css/bootstrap-datepicker.min.css}"/>
       <script th:src="@{/scriptlib/jquery/js/jquery-1.11.3.min.js}"></script>
       <script th:src="@{/scriptlib/angular-1.3.16/angular.js}"></script> 
       <script th:src="@{/scriptlib/angular-1.3.16/angular-route.min.js}"></script>
@@ -223,8 +225,11 @@ code {
       </div>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2014 The Static Templates</div>
-    
     <script th:src="@{/scriptlib/bootstrap-3.3.4-dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/scriptlib/bootstrap-datepicker-1.4.0-dist/js/bootstrap-datepicker.min.js}"></script>
     <script th:src="@{/scriptlib/hrms/select2/select2.box.js}"></script>
+    <script type="text/javascript">
+    $('.dateOfBirth').datepicker({})
+    </script>
   </body>
 </html>

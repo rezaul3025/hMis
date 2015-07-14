@@ -1,7 +1,10 @@
 package org.hmis.web.controller;
 
+import org.hmis.core.domain.Patient;
 import org.hmis.core.domain.User;
+import org.hmis.persistence.repo.PatientRepo;
 import org.hmis.persistence.service.UserService;
+import org.hmis.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,9 @@ public class HmisController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PatientRepo patientRepo;
+	
 	@RequestMapping(value="/")
 	public String index()
 	{
@@ -25,6 +31,13 @@ public class HmisController {
 		user.setRoles("ADMIN");
 		user.setEnabled(true);
 		//userService.create(user);
+		
+		Patient p = new Patient();
+		p.setAddress("Test");
+		p.setHieght(12);
+		
+		//patientRepo.save(p);
+		
 		return "login";
 	}
 	
@@ -36,8 +49,10 @@ public class HmisController {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/home")
-	public String home()
+	public String home(Model model)
 	{
+		model.addAttribute("patients", patientRepo.findAll());
+		
 		return "home";
 	}
 	
@@ -65,6 +80,26 @@ public class HmisController {
 		
 		
 		return "admin/add_user";
+	}
+	
+	@RequestMapping(value="/add-patient", method=RequestMethod.GET)
+	public String initAddPatient(Model model){
+		
+		model.addAttribute("patient", new Patient());
+		
+		return "patient/add";
+	}
+	
+	@RequestMapping(value="/add-patient", method=RequestMethod.POST)
+	public String addPatient(@ModelAttribute Patient patient, Model model){
+		if(patient != null){
+			float age = Utils.getAgeFromDOB(patient.getDateOfBirth());
+			patient.setAge(age);
+		}
+		
+		patientRepo.save(patient);
+		
+		return "redirect:/home";
 	}
 	
 }

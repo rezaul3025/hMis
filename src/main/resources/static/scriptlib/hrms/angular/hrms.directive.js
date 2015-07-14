@@ -1,7 +1,6 @@
 
 var cgNgapp = angular.module('hrmsApp',[]);
       cgNgapp.directive('cgInput', function(){
-    	  
     	  return{
     		  restrict: 'AE',
     		  replace:true,

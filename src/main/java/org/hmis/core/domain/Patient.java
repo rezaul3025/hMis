@@ -3,13 +3,11 @@ package org.hmis.core.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
+@Document(collection="PATIENT")
 public class Patient implements Serializable
 {
 	/**
@@ -17,14 +15,14 @@ public class Patient implements Serializable
 	 */
 	private static final long serialVersionUID = 2558249907642526794L;
 	
-	
+	@Indexed
 	private String id;
 	@Field
 	private String name;
 	@Field
 	private Date dateOfBirth;
 	@Field
-	private Integer age;
+	private Float age;
 	@Field
 	private String address;
 	@Field
@@ -56,11 +54,11 @@ public class Patient implements Serializable
 	{
 		this.dateOfBirth = dateOfBirth;
 	}
-	public Integer getAge()
+	public Float getAge()
 	{
 		return age;
 	}
-	public void setAge(Integer age)
+	public void setAge(Float age)
 	{
 		this.age = age;
 	}
