@@ -1,8 +1,14 @@
 package org.hmis.web.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.hmis.core.domain.Patient;
+import org.hmis.core.domain.PatientVisit;
 import org.hmis.core.domain.User;
 import org.hmis.persistence.repo.PatientRepo;
+import org.hmis.persistence.repo.PatientVisitRepo;
 import org.hmis.persistence.service.UserService;
 import org.hmis.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +27,9 @@ public class HmisController {
 	
 	@Autowired
 	private PatientRepo patientRepo;
+	
+	@Autowired
+	private PatientVisitRepo patientVisitRepo;
 	
 	@RequestMapping(value="/")
 	public String index()
@@ -51,7 +60,8 @@ public class HmisController {
 	@RequestMapping(value="/home")
 	public String home(Model model)
 	{
-		model.addAttribute("patients", patientRepo.findAll());
+		List<Patient> patients = patientRepo.findAll();
+		model.addAttribute("patients", patients);
 		
 		return "home";
 	}
@@ -92,12 +102,22 @@ public class HmisController {
 	
 	@RequestMapping(value="/add-patient", method=RequestMethod.POST)
 	public String addPatient(@ModelAttribute Patient patient, Model model){
+		//List<PatientVisit> pvl = new ArrayList<PatientVisit>();
+		PatientVisit pv =new PatientVisit();
+		pv.setStart(new Date());
+		//pvl.add(pv);
 		if(patient != null){
+			//patient.setPatientVisit(pvl);
+			pv.setPatient(patient);
 			float age = Utils.getAgeFromDOB(patient.getDateOfBirth());
 			patient.setAge(age);
 		}
 		
+		
+		
 		patientRepo.save(patient);
+		
+		patientVisitRepo.save(pv);
 		
 		return "redirect:/home";
 	}

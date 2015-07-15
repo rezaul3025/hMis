@@ -2,6 +2,9 @@ package org.hmis.core.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.OneToMany;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,6 +32,9 @@ public class Patient implements Serializable
 	private Integer hieght;
 	@Field
 	private Integer weight;
+	
+	@OneToMany(mappedBy="patient")
+	private List<PatientVisit> patientVisit;
 	
 	public String getId()
 	{
@@ -86,4 +92,11 @@ public class Patient implements Serializable
 	{
 		this.weight = weight;
 	}
+	public List<PatientVisit> getPatientVisit() {
+		return patientVisit;
+	}
+	public void setPatientVisit(List<PatientVisit> patientVisit) {
+		this.patientVisit = patientVisit;
+	}
+	
 }
