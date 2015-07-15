@@ -3,6 +3,7 @@ package org.hmis.web.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.hmis.core.domain.Patient;
 import org.hmis.core.domain.PatientVisit;
@@ -104,6 +105,7 @@ public class HmisController {
 	public String addPatient(@ModelAttribute Patient patient, Model model){
 		//List<PatientVisit> pvl = new ArrayList<PatientVisit>();
 		PatientVisit pv =new PatientVisit();
+		//pv.setId(UUID.randomUUID().toString());
 		pv.setStart(new Date());
 		//pvl.add(pv);
 		if(patient != null){

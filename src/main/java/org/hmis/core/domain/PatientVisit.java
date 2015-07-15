@@ -2,9 +2,8 @@ package org.hmis.core.domain;
 
 import java.util.Date;
 
-import javax.persistence.ManyToOne;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,9 +16,12 @@ public class PatientVisit {
 	private Date start;
 	@Field
 	private Date end;
-	
-	@ManyToOne
+	@DBRef
 	private Patient patient;
+	
+	public PatientVisit(){
+		
+	}
 	
 	public String getId() {
 		return id;
@@ -39,11 +41,14 @@ public class PatientVisit {
 	public void setEnd(Date end) {
 		this.end = end;
 	}
+
 	public Patient getPatient() {
 		return patient;
 	}
+
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+	
 	
 }

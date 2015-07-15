@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.OneToMany;
 
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -33,7 +34,7 @@ public class Patient implements Serializable
 	@Field
 	private Integer weight;
 	
-	@OneToMany(mappedBy="patient")
+	@DBRef
 	private List<PatientVisit> patientVisit;
 	
 	public String getId()
