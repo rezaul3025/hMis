@@ -3,7 +3,9 @@ package org.hmis.web.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.hmis.core.domain.Patient;
 import org.hmis.core.domain.PatientVisit;
@@ -17,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -61,7 +64,8 @@ public class HmisController {
 	@RequestMapping(value="/home")
 	public String home(Model model)
 	{
-		List<Patient> patients = patientRepo.findAll();
+		List<Patient> patients = patientRepo.findByVisitStatus(true);
+		Map<String, Patient> patientMap = patients.stream().collect(Collectors.toMap(Patient::getId, p -> p));
 		model.addAttribute("patients", patients);
 		
 		return "home";
@@ -107,12 +111,14 @@ public class HmisController {
 		PatientVisit pv =new PatientVisit();
 		//pv.setId(UUID.randomUUID().toString());
 		pv.setStart(new Date());
+		pv.setEnd(null);
 		//pvl.add(pv);
 		if(patient != null){
 			//patient.setPatientVisit(pvl);
 			pv.setPatient(patient);
 			float age = Utils.getAgeFromDOB(patient.getDateOfBirth());
 			patient.setAge(age);
+			patient.setVisitStatus(true);
 		}
 		
 		
@@ -120,6 +126,24 @@ public class HmisController {
 		patientRepo.save(patient);
 		
 		patientVisitRepo.save(pv);
+		
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value="/patient-checkout/{id}")
+	public String patientCheckOut(@PathVariable("id") String id){
+		Patient patient = patientRepo.findById(id);
+		patient.setVisitStatus(false);
+		patientRepo.save(patient);
+		List<PatientVisit> patientVisits = patientVisitRepo.findByPatient(patient);
+		if(patientVisits != null){
+			for(PatientVisit patientVisit : patientVisits){
+				if(patientVisit.getEnd() == null){
+					patientVisit.setEnd(new Date());
+					patientVisitRepo.save(patientVisit);
+				}
+			}
+		}
 		
 		return "redirect:/home";
 	}

@@ -33,6 +33,8 @@ public class Patient implements Serializable
 	private Integer hieght;
 	@Field
 	private Integer weight;
+	@Field
+	private Boolean visitStatus;
 	
 	@DBRef
 	private List<PatientVisit> patientVisit;
@@ -98,6 +100,12 @@ public class Patient implements Serializable
 	}
 	public void setPatientVisit(List<PatientVisit> patientVisit) {
 		this.patientVisit = patientVisit;
+	}
+	public Boolean getVisitStatus() {
+		return visitStatus;
+	}
+	public void setVisitStatus(Boolean visitStatus) {
+		this.visitStatus = visitStatus;
 	}
 	
 }
