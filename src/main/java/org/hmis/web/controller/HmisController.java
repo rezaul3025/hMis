@@ -148,4 +148,44 @@ public class HmisController {
 		return "redirect:/home";
 	}
 	
+	@RequestMapping(value="/patient/view/{id}")
+	public String patientView(@PathVariable("id") String id, Model model){
+		Patient patient = patientRepo.findById(id);
+		
+		model.addAttribute("patient", patient);
+		
+		return "patient/view";
+	}
+	
+	@RequestMapping(value="/patient/status/{id}/{visitStatus}")
+	public String patientStatus(@PathVariable("id") String id, @PathVariable("visitStatus") String visitStatus, Model model){
+		Patient patient = patientRepo.findById(id);
+		List<PatientVisit> patientVisits = patientVisitRepo.findByPatient(patient);
+		if(visitStatus.equals("true")){
+			patient.setVisitStatus(false);
+			if(patientVisits != null){
+				for(PatientVisit patientVisit : patientVisits){
+					if(patientVisit.getEnd() == null){
+						patientVisit.setEnd(new Date());
+						patientVisitRepo.save(patientVisit);
+					}
+				}
+			}
+		}
+		else
+		{
+			patient.setVisitStatus(true);
+			PatientVisit pv = new PatientVisit();
+			pv.setStart(new Date());
+			pv.setPatient(patient);
+			patientVisitRepo.save(pv);
+		}
+		
+		patientRepo.save(patient);
+		
+		model.addAttribute("patient", patient);
+		
+		return "patient/view";
+	}
+	
 }
