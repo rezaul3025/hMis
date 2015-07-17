@@ -12,6 +12,9 @@
 		{
 			  padding-left: 5px !important;
 		}
+		.panel-title {
+  			font-size: 14px !important;
+		}
 	</style>
 </head>
 <body>
@@ -22,7 +25,11 @@
     </div>
     <div layout:fragment="content">
 		<div class="row">
-			<h3 th:text="${patient.name}"></h3> <a th:href="@{/patient/status/}+${patient.id}+'/'+${patient.visitStatus}" th:text="${patient.visitStatus}? 'Checkout' : 'Checkin'"> </a>
+			<h3>
+				<span th:text="${patient.name}"></span> 
+				<small><span th:if="${patient.visitStatus}" class="label label-success">Active</span></small>
+				<small><a th:href="@{/patient/status/}+${patient.id}+'/'+${patient.visitStatus}" th:text="${patient.visitStatus}? 'Checkout' : 'Checkin'"> </a></small>
+			</h3> 
 			<hr/>
 			<!--  div class="col-md-1">Date of birth :</div>
   <div class="col-md-2"><b> <span th:text="${patient.dateOfBirth}"></span></b></div>
@@ -35,7 +42,7 @@
   <div class="col-md-1">Weight:</div>
   <div class="col-md-1"><b><span th:text="${patient.weight}"></span> </b></div -->
 
-			<table cellpadding="3">
+			<table>
 				<tr>
 					<td>Date of birth : </td><td> <b> <span th:text="${patient.dateOfBirth}"></span></b>,</td>
 					<td>Age:</td><td><b><span th:text="${patient.age}"></span></b>,</td>
@@ -51,58 +58,28 @@
   				<h3>Add Clinical information</h3>
   				<hr/>
 			
-			<button type="button" class="btn btn-default btn-xs">Add prescription</button>
-			<button type="button" class="btn btn-default btn-xs">Add test result</button>
+			<button type="button" class="btn btn-default btn-sm">Add prescription</button>
+			<button type="button" class="btn btn-default btn-sm">Add test result</button>
 		</div>
 		<div class="row">
-			
-  				<h3>Medical history</h3>
-  				<hr/>
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #1
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Collapsible Group Item #2
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Collapsible Group Item #3
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-</div>	
-			
+  			<h3>Medical history</h3>
+  			<hr/>
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			  <div th:class="(${patientVisit.end}!=null)?'panel panel-default':'panel panel-success'" th:each="patientVisit,iterStat: ${patientVisits}">
+			    <div class="panel-heading" role="tab" id="headingOne+${iterStat.index}">
+			      <h4 class="panel-title">
+			        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#'+collapseOne+${iterStat.index}" aria-expanded="true" aria-controls="collapseOne+${iterStat.index}">
+			         <b><span  th:text="'Visit-'+${iterStat.index+1}+' '"></span> </b> <span th:text="${#dates.format(patientVisit.start, 'dd/MMM/yyyy HH:mm')}+' - '+((${patientVisit.end}!=null)?${#dates.format(patientVisit.end, 'dd/MMM/yyyy HH:mm')}:'')"></span>
+			        </a>
+			      </h4>
+			    </div>
+			    <div th:id="collapseOne+${iterStat.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne+${iterStat.index}">
+			      <div class="panel-body">
+			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+			      </div>
+			    </div>
+			  </div>
+			</div>	
 		</div>
 	</div>
 </body>

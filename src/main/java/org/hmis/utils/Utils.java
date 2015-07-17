@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.hmis.core.domain.PatientVisit;
 
 public class Utils {
 	
@@ -33,6 +37,11 @@ public class Utils {
 			return year;
 		}
 		
+	}
+	
+	public static List<PatientVisit> sortPatientVisit(List<PatientVisit> patientVisits){
+		
+		return patientVisits.stream().sorted((pv1, pv2) -> pv2.getStart().compareTo(pv1.getStart())).collect(Collectors.toList());
 	}
 
 }

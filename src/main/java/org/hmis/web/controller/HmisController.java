@@ -152,8 +152,14 @@ public class HmisController {
 	public String patientView(@PathVariable("id") String id, Model model){
 		Patient patient = patientRepo.findById(id);
 		
-		model.addAttribute("patient", patient);
+		List<PatientVisit> patientVisits = patientVisitRepo.findByPatient(patient);
 		
+		if(patientVisits != null){
+			patientVisits = Utils.sortPatientVisit(patientVisits);
+		}
+		
+		model.addAttribute("patient", patient);
+		model.addAttribute("patientVisits", patientVisits);
 		return "patient/view";
 	}
 	
@@ -184,8 +190,9 @@ public class HmisController {
 		patientRepo.save(patient);
 		
 		model.addAttribute("patient", patient);
+		model.addAttribute("patientVisits", patientVisitRepo.findByPatient(patient));
 		
-		return "patient/view";
+		return "redirect:/patient/view/"+id;
 	}
 	
 }
