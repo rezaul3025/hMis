@@ -23,7 +23,7 @@
 		    <tbody>
 		      <tr th:each="patient : ${patients}">
 		        <td><a th:href="@{/patient/view/}+${patient.id}" th:text="${patient.name}"></a></td>
-		        <td th:text="${patient.dateOfBirth}">dob</td>
+		        <td th:text="${#dates.format(patient.dateOfBirth, 'dd/MMM/yyyy')}">dob</td>
 		        <td><a th:href="@{/patient-checkout/}+${patient.id}" >Checkout</a></td>
 		      </tr>
 		    </tbody>
