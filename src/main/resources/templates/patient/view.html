@@ -44,7 +44,7 @@
 
 			<table>
 				<tr>
-					<td>Date of birth : </td><td> <b> <span th:text="${patient.dateOfBirth}"></span></b>,</td>
+					<td>Date of birth : </td><td> <b> <span th:text="${#dates.format(patient.dateOfBirth, 'dd/MMM/yyyy')}"></span></b>,</td>
 					<td>Age:</td><td><b><span th:text="${patient.age}"></span></b>,</td>
 					<td>Address:</td><td><b><span th:text="${patient.address}"></span></b>,</td>
 					<td>Height:</td><td><b><span th:text="${patient.hieght}"></span></b>,</td>
@@ -69,7 +69,7 @@
 			    <div class="panel-heading" role="tab" id="headingOne+${iterStat.index}">
 			      <h4 class="panel-title">
 			        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#'+collapseOne+${iterStat.index}" aria-expanded="true" aria-controls="collapseOne+${iterStat.index}">
-			         <b><span  th:text="'Visit-'+${iterStat.index+1}+' '"></span> </b> <span th:text="${#dates.format(patientVisit.start, 'dd/MMM/yyyy HH:mm')}+' - '+((${patientVisit.end}!=null)?${#dates.format(patientVisit.end, 'dd/MMM/yyyy HH:mm')}:'')"></span>
+			         <b><span  th:text="'Visit-'+${iterStat.index+1}+' '"></span> </b> <span th:text="${#dates.format(patientVisit.start, 'dd/MMM/yyyy HH:mm')}+' - '+((${patientVisit.end}!=null)?${#dates.format(patientVisit.end, 'dd/MMM/yyyy HH:mm')}:'active')"></span>
 			        </a>
 			      </h4>
 			    </div>
