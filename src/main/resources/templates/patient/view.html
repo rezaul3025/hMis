@@ -15,6 +15,9 @@
 		.panel-title {
   			font-size: 14px !important;
 		}
+		#addprescription .panel {
+    		margin-bottom: 0 !important;
+		}
 	</style>
 </head>
 <body>
@@ -57,9 +60,18 @@
 			
   				<h3>Add Clinical information</h3>
   				<hr/>
-			
-			<button type="button" class="btn btn-default btn-sm">Add prescription</button>
+			<a class="btn btn-default btn-sm" role="button" data-toggle="collapse" href="#addprescription" aria-expanded="false" aria-controls="addprescription,addtestresult">
+  				Add prescription
+			</a>
+			<a class="btn btn-default btn-sm" role="button" data-toggle="collapse" href="#addtestresult" aria-expanded="false" aria-controls="addprescription,addtestresult">
+  				Add test result
+			</a>
 			<button type="button" class="btn btn-default btn-sm">Add test result</button>
+			
+			<div th:replace="fragments/add_prescription :: add_prescription">
+			</div>
+			<div th:replace="fragments/add_test_result :: add_test_result">
+			</div>
 		</div>
 		<div class="row">
   			<h3>Medical history</h3>
@@ -69,7 +81,7 @@
 			    <div class="panel-heading" role="tab" id="headingOne+${iterStat.index}">
 			      <h4 class="panel-title">
 			        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#'+collapseOne+${iterStat.index}" aria-expanded="true" aria-controls="collapseOne+${iterStat.index}">
-			         <b><span  th:text="'Visit-'+${iterStat.index+1}+' '"></span> </b> <span th:text="${#dates.format(patientVisit.start, 'dd/MMM/yyyy HH:mm')}+' - '+((${patientVisit.end}!=null)?${#dates.format(patientVisit.end, 'dd/MMM/yyyy HH:mm')}:'active')"></span>
+			         <b><span  th:text="'Visit-'+${#lists.size(patientVisits)-iterStat.index}+' '"></span> </b> <span th:text="${#dates.format(patientVisit.start, 'dd/MMM/yyyy HH:mm')}+' - '+((${patientVisit.end}!=null)?${#dates.format(patientVisit.end, 'dd/MMM/yyyy HH:mm')}:'active')"></span>
 			        </a>
 			      </h4>
 			    </div>
