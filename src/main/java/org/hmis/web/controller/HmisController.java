@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.hmis.core.domain.Patient;
 import org.hmis.core.domain.PatientVisit;
 import org.hmis.core.domain.User;
+import org.hmis.persistence.repo.HpoTermRepo;
 import org.hmis.persistence.repo.PatientRepo;
 import org.hmis.persistence.repo.PatientVisitRepo;
 import org.hmis.persistence.service.UserService;
@@ -34,6 +35,9 @@ public class HmisController {
 	
 	@Autowired
 	private PatientVisitRepo patientVisitRepo;
+	
+	@Autowired
+	private HpoTermRepo hpoTermRepo;
 	
 	@RequestMapping(value="/")
 	public String index()
@@ -67,6 +71,7 @@ public class HmisController {
 		List<Patient> patients = patientRepo.findByVisitStatus(true);
 		Map<String, Patient> patientMap = patients.stream().collect(Collectors.toMap(Patient::getId, p -> p));
 		model.addAttribute("patients", patients);
+		model.addAttribute("totalhpo", hpoTermRepo.count());
 		
 		return "home";
 	}
