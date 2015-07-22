@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.hmis.core.domain.Hpo;
 import org.hmis.core.domain.Patient;
 import org.hmis.core.domain.PatientVisit;
 import org.hmis.core.domain.User;
@@ -16,6 +17,8 @@ import org.hmis.persistence.repo.PatientVisitRepo;
 import org.hmis.persistence.service.UserService;
 import org.hmis.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,6 +75,12 @@ public class HmisController {
 		Map<String, Patient> patientMap = patients.stream().collect(Collectors.toMap(Patient::getId, p -> p));
 		model.addAttribute("patients", patients);
 		model.addAttribute("totalhpo", hpoTermRepo.count());
+		
+		Pageable pageable = new PageRequest(1,10);
+		
+		List<Hpo> hpoTerms = hpoTermRepo.findByNameLike("ab", pageable);
+		
+		model.addAttribute("hpoterms", hpoTerms);
 		
 		return "home";
 	}

@@ -28,3 +28,14 @@ var cgNgapp = angular.module('hrmsApp',[]);
     	  }
     	  
       });
+      
+      cgNgapp.directive('cgHpoTerms', function(){
+    	  
+    	  return{
+    		  restrict: 'AE',
+    		  replace:true,
+    		  template:'<input name="hpoterms" class="form-control" />'
+    		  
+    	  }
+    	  
+      });

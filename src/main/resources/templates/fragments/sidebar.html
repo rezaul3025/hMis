@@ -28,6 +28,18 @@
 		      </tr>
 		    </tbody>
 	  	</table>
+	  	<table class="table">
+	  		<thead>
+		      <tr>
+		        <th>Name <span th:text="${totalhpo}"></span></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr th:each="hpo : ${hpoterms}">
+		        <td><a href="#" th:text="${hpo.name}"></a></td>
+		      </tr>
+		    </tbody>
+	  	</table>
           <ul class="nav nav-sidebar">
             <li><a href="">Nav item</a></li>
             <li><a href="">Nav item again</a></li>
