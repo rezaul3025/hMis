@@ -5,11 +5,118 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="collapse" id="addprescription" th:fragment="add_prescription">
+	<div class="collapse" id="addprescription" ng-controller="PrescriptionController"
+		th:fragment="add_prescription">
 		<div class="panel panel-default">
-  			<div class="panel-body">
-    			Basic panel example
-  			</div>
+			<div class="panel-body">
+				<h3>Add prescription</h3>
+				<hr />
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<form class="form-horizontal" action="#">
+							<div class="form-group">
+								<label for="symptoms" class="col-sm-3 control-label">Symptoms/HPO</label>
+								<div class="col-sm-5">
+									<cg-input ng-model="symptoms" 
+										id="symptoms" name="symptoms" 
+										th:field="*{symptoms}"
+										placeholder="symptoms/hpo" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="patientStatment" class="col-sm-3 control-label">Patient's statement</label>
+								<div class="col-sm-5">
+									<cg-text-area ng-model="patientStatment" 
+										id="patientStatment" name="patientStatment" 
+										th:field="*{patientStatment}"
+										placeholder="Patient's Statment" />
+								</div>
+							</div>
+							<div>
+								<h4>Medication/Drugs</h4>
+								
+								<table border="0" class="table" cellpadding="5">
+										<tr>
+											<td>Name</td>
+											<td>Remark</td>
+											<td>Morning dose</td>
+											<td>Afternoon dose</td>
+											<td>Evening dose</td>
+											<td>Others dose</td>
+										</tr>
+										<tr>
+											<td>
+												<cg-text-area ng-model="drug.drugName" 
+												id="drugName" name="drugName" 
+												placeholder="Drug Name" style="width:250px"/>
+											</td>
+											<td>
+												<cg-text-area ng-model="drug.drugRemark" 
+												id="drugRemark" name="drugRemark" 
+												placeholder="Drug Remark" style="width:200px"/>
+											</td>
+											<td>
+												<cg-input ng-model="drug.morningDose" 
+												id="morningDose" name="morningDose" 
+												placeholder="Morning Dose" />
+											</td>
+											<td>
+												<cg-input ng-model="drug.afternoonDose" 
+												id="afternoonDose" name="afternoonDose" 
+												placeholder="Afternoon Dose" />
+											</td>
+											<td>
+												<cg-input ng-model="drug.eveningDose" 
+												id="eveningDose" name="eveningDose" 
+												placeholder="Evening Dose" />
+											</td>
+											<td>
+												<cg-input ng-model="drug.othersDose" 
+												id="othersDose" name="othersDose" 
+												placeholder="Others Dose" />
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><button class="btn btn-primary" type="button" ng-click="addDrugs(drug)"> Add</button></td>
+										</tr>
+									</table>
+									<table class="table" ng-show="drugsArr.length">
+										<tr>
+											<td>Name</td>
+											<td>Remark</td>
+											<td>Morning dose</td>
+											<td>Afternoon dose</td>
+											<td>Evening dose</td>
+											<td>Others dose</td>
+											<td>Remove</td>
+										</tr>
+										<tr class="success" ng-repeat="d in drugsArr track by $index">
+											<td>{{d.drugNameD}}</td>
+											<td>{{d.drugRemarkD}}</td>
+											<td>{{d.morningDoseD}}</td>
+											<td>{{d.afternoonDoseD}}</td>
+											<td>{{d.eveningDoseD}}</td>
+											<td>{{d.othersDoseD}}</td>
+											<td><a href="#" ><span class="glyphicon glyphicon-remove" ng-click="removeDrugFromList($index)"></span></a></td>
+										</tr>
+									</table>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-3">
+										<button class="btn btn-primary"> Save Prescription</button>
+									</div>
+									<div class="col-sm-5">
+									</div>
+								</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
