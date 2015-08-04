@@ -8,14 +8,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.hmis.core.domain.Hpo;
+import org.hmis.core.domain.Medication;
 import org.hmis.core.domain.Patient;
 import org.hmis.core.domain.PatientVisit;
+import org.hmis.core.domain.Prescription;
 import org.hmis.core.domain.User;
 import org.hmis.persistence.repo.HpoTermRepo;
 import org.hmis.persistence.repo.PatientRepo;
 import org.hmis.persistence.repo.PatientVisitRepo;
 import org.hmis.persistence.service.UserService;
 import org.hmis.utils.Utils;
+import org.hmis.web.domain.PrescriptionFromBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +27,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HmisController {
@@ -170,7 +175,9 @@ public class HmisController {
 		
 		if(patientVisits != null){
 			patientVisits = Utils.sortPatientVisit(patientVisits);
+			model.addAttribute("activeVisit", patientVisits.get(0).getEnd() == null ? patientVisits.get(0):null);
 		}
+		
 		
 		model.addAttribute("patient", patient);
 		model.addAttribute("patientVisits", patientVisits);
@@ -207,6 +214,18 @@ public class HmisController {
 		model.addAttribute("patientVisits", patientVisitRepo.findByPatient(patient));
 		
 		return "redirect:/patient/view/"+id;
+	}
+	
+	@RequestMapping(value = "/prescription/store", method = RequestMethod.POST)
+	@ResponseBody
+	public void savePrescription(@RequestBody PrescriptionFromBean prescriptionFromBean){
+		
+		String pateintId = prescriptionFromBean.getPatientId();
+		
+		Prescription prescription = prescriptionFromBean.getPrescription();
+		
+		List<Medication> medications = prescriptionFromBean.getMedications();
+		
 	}
 	
 }

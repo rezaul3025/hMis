@@ -14,10 +14,12 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<form class="form-horizontal" action="#">
+							<input type="hidden" ng-model="patientId" value="{{patient.id}}" />
+							<input type="hidden" ng-model="visitId" value=""/>  
 							<div class="form-group">
 								<label for="symptoms" class="col-sm-3 control-label">Symptoms/HPO</label>
 								<div class="col-sm-5">
-									<cg-input ng-model="symptoms" 
+									<cg-input ng-model="prescription.symptoms" 
 										id="symptoms" name="symptoms" 
 										th:field="*{symptoms}"
 										placeholder="symptoms/hpo" />
@@ -26,7 +28,7 @@
 							<div class="form-group">
 								<label for="patientStatment" class="col-sm-3 control-label">Patient's statement</label>
 								<div class="col-sm-5">
-									<cg-text-area ng-model="patientStatment" 
+									<cg-text-area ng-model="prescription.patientStatment" 
 										id="patientStatment" name="patientStatment" 
 										th:field="*{patientStatment}"
 										placeholder="Patient's Statment" />
@@ -44,7 +46,7 @@
 											<td>Evening dose</td>
 											<td>Others dose</td>
 										</tr>
-										<tr>
+										<tr class="success">
 											<td>
 												<cg-text-area ng-model="drug.drugName" 
 												id="drugName" name="drugName" 

@@ -22,5 +22,27 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 	};
 	
 	
+	$scope.savePrescription = function(prescription){
+		
+		var data = {
+				patientId : ,
+				prescription :prescription,
+				medications : $scope.drugsArr
+					
+		}
+		
+		$http({
+            method: 'POST',
+            url:  "/prescription/store",
+            data: data
+            //params: {'chromosome':variant.chromosome,'gdna':variant.gdna,'cdna':variant.cdna,'dbsnp':variant.dbSnp,'hgmdaccession':variant.hgmdAccession,'type':variant.type,'pathogenicityeffect':variant.pathogenicityEffect,'pathogenicityscore':variant.pathogenicityScore,'coddingeffect':variant.codingEffect,'location':variant.location,'protein':variant.protein,'reference':variant.reference}
+        }).
+        success(function(data, status, headers, config) {
+        	
+        })
+        .error(function(data, status, headers, config) {                
+		})
+		
+	}
 	
 }]);
