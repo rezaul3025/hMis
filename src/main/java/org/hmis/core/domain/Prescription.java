@@ -25,6 +25,9 @@ public class Prescription implements Serializable{
 	@DBRef
 	private Patient patient;
 	
+	@DBRef
+	private PatientVisit patientVisit;
+	
 	public String getId() {
 		return id;
 	}
@@ -48,6 +51,12 @@ public class Prescription implements Serializable{
 	}
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+	public PatientVisit getPatientVisit() {
+		return patientVisit;
+	}
+	public void setPatientVisit(PatientVisit patientVisit) {
+		this.patientVisit = patientVisit;
 	}
 
 }

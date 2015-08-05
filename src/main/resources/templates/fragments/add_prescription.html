@@ -46,32 +46,32 @@
 										</tr>
 										<tr class="success">
 											<td>
-												<cg-text-area ng-model="drug.drugName" 
+												<cg-text-area ng-model="drug.drugNameM" 
 												id="drugName" name="drugName" 
 												placeholder="Drug Name" style="width:250px"/>
 											</td>
 											<td>
-												<cg-text-area ng-model="drug.drugRemark" 
+												<cg-text-area ng-model="drug.drugRemarkM" 
 												id="drugRemark" name="drugRemark" 
 												placeholder="Drug Remark" style="width:200px"/>
 											</td>
 											<td>
-												<cg-input ng-model="drug.morningDose" 
+												<cg-input ng-model="drug.morningDoseM" 
 												id="morningDose" name="morningDose" 
 												placeholder="Morning Dose" />
 											</td>
 											<td>
-												<cg-input ng-model="drug.afternoonDose" 
+												<cg-input ng-model="drug.afternoonDoseM" 
 												id="afternoonDose" name="afternoonDose" 
 												placeholder="Afternoon Dose" />
 											</td>
 											<td>
-												<cg-input ng-model="drug.eveningDose" 
+												<cg-input ng-model="drug.eveningDoseM" 
 												id="eveningDose" name="eveningDose" 
 												placeholder="Evening Dose" />
 											</td>
 											<td>
-												<cg-input ng-model="drug.othersDose" 
+												<cg-input ng-model="drug.othersDoseM" 
 												id="othersDose" name="othersDose" 
 												placeholder="Others Dose" />
 											</td>
@@ -96,12 +96,12 @@
 											<td>Remove</td>
 										</tr>
 										<tr class="success" ng-repeat="d in drugsArr track by $index">
-											<td>{{d.drugNameD}}</td>
-											<td>{{d.drugRemarkD}}</td>
-											<td>{{d.morningDoseD}}</td>
-											<td>{{d.afternoonDoseD}}</td>
-											<td>{{d.eveningDoseD}}</td>
-											<td>{{d.othersDoseD}}</td>
+											<td>{{d.drugName}}</td>
+											<td>{{d.drugRemark}}</td>
+											<td>{{d.morningDose}}</td>
+											<td>{{d.afternoonDose}}</td>
+											<td>{{d.eveningDose}}</td>
+											<td>{{d.othersDose}}</td>
 											<td><a href="#" ><span class="glyphicon glyphicon-remove" ng-click="removeDrugFromList($index)"></span></a></td>
 										</tr>
 									</table>

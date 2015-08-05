@@ -9,6 +9,8 @@ public class PrescriptionFromBean {
 	
 	private String patientId;
 	
+	private String visitId;
+	
 	private Prescription prescription;
 	
 	private List<Medication> medications;
@@ -19,6 +21,14 @@ public class PrescriptionFromBean {
 
 	public void setPatientId(String patientId) {
 		this.patientId = patientId;
+	}
+
+	public String getVisitId() {
+		return visitId;
+	}
+
+	public void setVisitId(String visitId) {
+		this.visitId = visitId;
 	}
 
 	public Prescription getPrescription() {

@@ -15,12 +15,12 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 		//var drug='drugNameD:'+drug.drugName+',drugRemarkD:'+drug.drugRemark+',morningDoseD:'+drug.morningDose+',afternoonDoseD:'+drug.afternoonDose+',eveningDoseD:'+drug.eveningDose+',othersDoseD:'+drug.othersDose;
 		
 		$scope.drugsArr.push({
-			drugNameD:typeof drug.drugName !== 'undefined'?drug.drugName:'',
-			drugRemarkD:typeof drug.drugRemark !== 'undefined'?drug.drugRemark:'',
-			morningDoseD : typeof drug.morningDose !== 'undefined'?drug.morningDose:'',		
-			afternoonDoseD :typeof drug.afternoonDose !== 'undefined'?drug.afternoonDose:'',	
-			eveningDoseD : typeof drug.eveningDose !== 'undefined'?drug.eveningDose:'',	
-			othersDoseD	: typeof drug.othersDose !== 'undefined'?drug.othersDose:''	
+			drugName:typeof drug.drugNameM !== 'undefined'?drug.drugNameM:'',
+			drugRemark:typeof drug.drugRemarkM !== 'undefined'?drug.drugRemarkM:'',
+			morningDose : typeof drug.morningDoseM !== 'undefined'?drug.morningDoseM:'',		
+			afternoonDose :typeof drug.afternoonDoseM !== 'undefined'?drug.afternoonDoseM:'',	
+			eveningDose : typeof drug.eveningDoseM !== 'undefined'?drug.eveningDoseM:'',	
+			othersDose	: typeof drug.othersDoseM !== 'undefined'?drug.othersDoseM:''	
 		});
 	};
 	
@@ -30,7 +30,10 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 	
 	
 	$scope.savePrescription = function(prescription){
-		alert($rootScope.patientId);
+		var token = $("meta[name='_csrf']").attr("content");
+	    var header = $("meta[name='_csrf_header']").attr("content");
+		alert(token);
+
 		var data = {
 				patientId : $rootScope.patientId,
 				visitId : $rootScope.visitId,
@@ -42,7 +45,11 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 		$http({
             method: 'POST',
             url:  "/hmis/prescription/store",
-            data: data
+            data: data,
+            headers: {
+            	   'X-CSRF-TOKEN': token,
+            	   '_csrf_header':header
+            	 }
             //params: {'chromosome':variant.chromosome,'gdna':variant.gdna,'cdna':variant.cdna,'dbsnp':variant.dbSnp,'hgmdaccession':variant.hgmdAccession,'type':variant.type,'pathogenicityeffect':variant.pathogenicityEffect,'pathogenicityscore':variant.pathogenicityScore,'coddingeffect':variant.codingEffect,'location':variant.location,'protein':variant.protein,'reference':variant.reference}
         }).
         success(function(data, status, headers, config) {

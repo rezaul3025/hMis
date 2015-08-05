@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html layout:decorator="layout" xmlns:th="http://www.thymeleaf.org" >
 <head>
-<meta charset="ISO-8859-1" />
+	<meta charset="ISO-8859-1" />
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    
 	<title>Insert title here</title>
 	<style type="text/css">
 		hr{
