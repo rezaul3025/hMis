@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="collapse" id="addprescription" ng-controller="PrescriptionController"
+	<div class="collapse" id="addprescription" ng-controller="PrescriptionController as preCon" th:attr="ng-init='preCon.init(\''+${patient.id}+'\',\''+${activeVisit.id}+'\')'" 
 		th:fragment="add_prescription">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -14,8 +14,6 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<form class="form-horizontal" action="#">
-							<input type="hidden" ng-model="patientId" value="{{patient.id}}" />
-							<input type="hidden" ng-model="visitId" value=""/>  
 							<div class="form-group">
 								<label for="symptoms" class="col-sm-3 control-label">Symptoms/HPO</label>
 								<div class="col-sm-5">
@@ -110,7 +108,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-sm-3">
-										<button class="btn btn-primary"> Save Prescription</button>
+										<button class="btn btn-primary" type="button" ng-click="savePrescription(prescription)"> Save Prescription</button>
 									</div>
 									<div class="col-sm-5">
 									</div>

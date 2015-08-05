@@ -3,10 +3,17 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 	
 	$scope.drugsArr = [];
 	
+	this.init = function(patientId, visitId){
+		 $rootScope.patientId = patientId;
+		 $rootScope.visitId = visitId;
+		 
+		 //alert($rootScope.patientId);
+	 };
+	 
 	$scope.addDrugs = function(drug){
 		//alert('test'+$scope.drugsArr.length);
 		//var drug='drugNameD:'+drug.drugName+',drugRemarkD:'+drug.drugRemark+',morningDoseD:'+drug.morningDose+',afternoonDoseD:'+drug.afternoonDose+',eveningDoseD:'+drug.eveningDose+',othersDoseD:'+drug.othersDose;
-		//alert('test'+drug);
+		
 		$scope.drugsArr.push({
 			drugNameD:typeof drug.drugName !== 'undefined'?drug.drugName:'',
 			drugRemarkD:typeof drug.drugRemark !== 'undefined'?drug.drugRemark:'',
@@ -23,9 +30,10 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 	
 	
 	$scope.savePrescription = function(prescription){
-		
+		alert($rootScope.patientId);
 		var data = {
-				patientId : ,
+				patientId : $rootScope.patientId,
+				visitId : $rootScope.visitId,
 				prescription :prescription,
 				medications : $scope.drugsArr
 					
@@ -33,7 +41,7 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
 		
 		$http({
             method: 'POST',
-            url:  "/prescription/store",
+            url:  "/hmis/prescription/store",
             data: data
             //params: {'chromosome':variant.chromosome,'gdna':variant.gdna,'cdna':variant.cdna,'dbsnp':variant.dbSnp,'hgmdaccession':variant.hgmdAccession,'type':variant.type,'pathogenicityeffect':variant.pathogenicityEffect,'pathogenicityscore':variant.pathogenicityScore,'coddingeffect':variant.codingEffect,'location':variant.location,'protein':variant.protein,'reference':variant.reference}
         }).

@@ -215,17 +215,4 @@ public class HmisController {
 		
 		return "redirect:/patient/view/"+id;
 	}
-	
-	@RequestMapping(value = "/prescription/store", method = RequestMethod.POST)
-	@ResponseBody
-	public void savePrescription(@RequestBody PrescriptionFromBean prescriptionFromBean){
-		
-		String pateintId = prescriptionFromBean.getPatientId();
-		
-		Prescription prescription = prescriptionFromBean.getPrescription();
-		
-		List<Medication> medications = prescriptionFromBean.getMedications();
-		
-	}
-	
 }
