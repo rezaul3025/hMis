@@ -78,14 +78,14 @@
 			<div th:replace="fragments/add_test_result :: add_test_result">
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" ng-controller="VisitController as visitCon" th:attr="ng-init='visitCon.init(\''+${patient.id}+'\')'">
   			<h3>Medical history</h3>
   			<hr/>
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			  <div th:class="(${patientVisit.end}!=null)?'panel panel-default':'panel panel-success'" th:each="patientVisit,iterStat: ${patientVisits}">
 			    <div class="panel-heading" role="tab" id="headingOne+${iterStat.index}">
 			      <h4 class="panel-title">
-			        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#'+collapseOne+${iterStat.index}" aria-expanded="true" aria-controls="collapseOne+${iterStat.index}">
+			        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#'+collapseOne+${iterStat.index}" aria-expanded="true" aria-controls="collapseOne+${iterStat.index}" th:attr="ng-click='getPrescriptionByPatientAndVisit(\''+${patientVisit.id}+'\')'">
 			         <b><span  th:text="'Visit-'+${#lists.size(patientVisits)-iterStat.index}+' '"></span> </b> <span th:text="${#dates.format(patientVisit.start, 'dd/MMM/yyyy HH:mm')}+' - '+((${patientVisit.end}!=null)?${#dates.format(patientVisit.end, 'dd/MMM/yyyy HH:mm')}:'active')"></span>
 			        </a>
 			      </h4>

@@ -58,6 +58,25 @@ cgNgapp.controller('PrescriptionController', ['$http', '$scope', '$rootScope', f
         .error(function(data, status, headers, config) {                
 		})
 		
-	}
+	};
 	
+	
+	
+}]);
+
+
+cgNgapp.controller('VisitController', ['$http', '$scope', '$rootScope', function VisitController($http, $scope, $rootScope ){
+	this.init = function(patientId){
+		 $rootScope.patientId = patientId;
+		
+		 
+		 //alert($rootScope.patientId);
+	 };
+	 
+	 $scope.getPrescriptionByPatientAndVisit = function(visitId){
+			alert('hello');
+			 $http.get('/hmis/prescription/rest/prescription/'+$rootScope.patientId+'/'+visitId).success(function (data) {
+				 
+			 })
+		};
 }]);
